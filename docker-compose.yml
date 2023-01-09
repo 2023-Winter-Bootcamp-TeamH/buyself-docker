@@ -13,10 +13,10 @@ services:
 
   react:
     build:
-      context: ./frontend
+      context: ./buyself-frontend
     command: ["npm", "start"]
     ports:
       - 3000:3000
     volumes:
-      - ./frontend/:/frontend
-      - ./frontend/node_modules/:/frontend/node_modules
+      - ./buyself-frontend/:/buyself-frontend
+      - ./buyself-frontend/node_modules/:/buyself-frontend/node_modules
