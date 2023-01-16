@@ -9,7 +9,10 @@ services:
     volumes:
       - ./buyself-backend/:/buyself-backend/
     environment:
-      FLASK_ENV: app
+      FLASK_ENV: development
+      FLASK_DEBUG: 1
+    networks:
+      - app-tier
 
   react:
     build:
@@ -20,3 +23,48 @@ services:
     volumes:
       - ./buyself-frontend/:/buyself-frontend
       - ./buyself-frontend/node_modules/:/buyself-frontend/node_modules
+    networks:
+      - app-tier
+
+  rabbitmq:
+    hostname: rabbit    # 도커 컨테이너의 호스트 내임
+    image: rabbitmq:3-management  # 래빗엠큐 이미지 버전
+    command: rabbitmq-server     # 컨테이너 수행할 명령어
+    restart: unless-stopped      # 컨테이너 종료시 (재시작여부) 종료 코드와 상관없이 컨테이너가 다시시작하지만 서비스가 중지되거나 제거되면 다시 시작을 중지한다
+    environment:
+      - RABBITMQ_DEFAULT_USER=buyselfback   #rabbitmq 아이디
+      - RABBITMQ_DEFAULT_PASS=buyselfback #rabbitmq 비밀번호
+    ports:
+      - 5672:5672  #rabbitmq AMQP 기본 포트 번호
+      - 15672:15672 #Rabbitmq web
+    networks:
+      - app-tier
+    depends_on: #depends_on은 다른 서비스에 대한 의존관계를 나타냄, 컨테이너를 생성하는 순서나 연동 여부를 정의
+      - back
+
+  celery:
+    build:
+      context: ./buyself-backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - "rabbitmq"
+      - "back"
+    networks:
+      - app-tier
+    command:
+      [
+        "celery",
+        "-A",
+        "tasks",
+        "worker",
+        "--loglevel=info",
+        "--pool",
+        "threads",
+      ]
+
+
+
+networks:
+  app-tier:
+    driver: bridge
