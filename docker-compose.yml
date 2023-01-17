@@ -63,6 +63,13 @@ services:
         "threads",
       ]
 
+  redis:
+    image: redis:alpine                 # 경량화된 레디스 버전
+    command: redis-server --port 6379   #redis서버 오픈 명령어
+    ports:
+      - 6379:6379                       # 호스트 포트:컨테이너 포트
+    networks:
+        - app-tier
 
 
 networks:
