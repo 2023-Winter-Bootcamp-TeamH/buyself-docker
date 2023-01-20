@@ -1,0 +1,139 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: ./buyself-backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./buyself-backend/:/buyself-backend/
+    environment:
+      FLASK_ENV: development
+      FLASK_DEBUG: 1
+#    ports:
+#      - 5000:5000
+    command: gunicorn --bind 0:8000 wsgi:app
+    networks:
+      - app-tier
+
+  frontend:
+    build:
+      context: ./buyself-frontend
+    command: ["npm", "start"]
+    ports:
+      - 3000:3000
+    volumes:
+      - ./buyself-frontend/:/buyself-frontend
+      - ./buyself-frontend/node_modules/:/buyself-frontend/node_modules
+    networks:
+      - app-tier
+
+  rabbitmq:
+    hostname: rabbit    # 도커 컨테이너의 호스트 내임
+    image: rabbitmq:3-management  # 래빗엠큐 이미지 버전
+    command: rabbitmq-server     # 컨테이너 수행할 명령어
+    restart: unless-stopped      # 컨테이너 종료시 (재시작여부) 종료 코드와 상관없이 컨테이너가 다시시작하지만 서비스가 중지되거나 제거되면 다시 시작을 중지한다
+    environment:
+      - RABBITMQ_DEFAULT_USER=buyselfback   #rabbitmq 아이디
+      - RABBITMQ_DEFAULT_PASS=buyselfback #rabbitmq 비밀번호
+    ports:
+      - 5672:5672  #rabbitmq AMQP 기본 포트 번호
+      - 15672:15672 #Rabbitmq web
+    networks:
+      - app-tier
+    depends_on: #depends_on은 다른 서비스에 대한 의존관계를 나타냄, 컨테이너를 생성하는 순서나 연동 여부를 정의
+      - backend
+
+  celery:
+    build:
+      context: ./buyself-backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - "rabbitmq"
+      - "backend"
+    networks:
+      - app-tier
+    command:
+      [
+        "celery",
+        "-A",
+        "tasks",
+        "worker",
+        "--loglevel=info",
+        "--pool",
+        "threads"
+      ]
+
+  redis:
+    image: redis:alpine                 # 경량화된 레디스 버전
+    command: redis-server --port 6379   #redis서버 오픈 명령어
+    ports:
+      - 6379:6379                       # 호스트 포트:컨테이너 포트
+    networks:
+      - app-tier
+
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - backend
+    networks:
+      - app-tier
+    expose:
+      - 9090
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3333:3000
+    volumes:
+      - ./datasource.yml:/etc/grafana/provisioning/datasource.yml
+    depends_on:
+      - prometheus
+    networks:
+      - app-tier
+
+  node-exporter:
+    image: prom/node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    ports:
+      - 9100:9100
+    restart: always
+    networks:
+      - app-tier
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:8080
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    networks:
+      - app-tier
+    depends_on:
+      - backend
+      - frontend
+    restart: always
+
+
+
+networks:
+  app-tier:
+    driver: bridge
