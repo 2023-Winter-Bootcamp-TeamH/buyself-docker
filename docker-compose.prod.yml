@@ -11,7 +11,7 @@ services:
       FLASK_DEBUG: 1
 #    ports:
 #      - 5000:5000
-    command: gunicorn --bind 0:8000 wsgi:app
+    command: gunicorn -w 1 -b 0:8000 wsgi:app
     networks:
       - app-tier
 
@@ -125,12 +125,105 @@ services:
       - 80:8080
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./nginx/log:/var/log/nginx
     networks:
       - app-tier
     depends_on:
       - backend
       - frontend
     restart: always
+
+  cadvisor:
+    image: zcube/cadvisor
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - app-tier
+
+  elasticsearch:
+    build:
+      context: ./logging-example/elasticsearch
+      args:
+        ELASTIC_VERSION: 7.17.8
+    volumes:
+      - ./logging-example/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      node.name: elasticsearch
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      # Bootstrap password.
+      # Used to initialize the keystore during the initial startup of
+      # Elasticsearch. Ignored on subsequent runs.
+      ELASTIC_PASSWORD: changeme
+      # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+      # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+      discovery.type: single-node
+    restart: unless-stopped
+    networks:
+      - app-tier
+
+  logstash:
+      build:
+        context: ./logging-example/logstash
+        args:
+          ELASTIC_VERSION: 7.17.8
+      volumes:
+        - ./logging-example/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
+        - ./logging-example/logstash/pipeline:/usr/share/logstash/pipeline:ro,Z
+      ports:
+        - 5044:5044
+        - 50000:50000/tcp
+        - 50000:50000/udp
+        - 9600:9600
+      environment:
+        LS_JAVA_OPTS: -Xms256m -Xmx256m
+        LOGSTASH_INTERNAL_PASSWORD: changeme
+      depends_on:
+        - elasticsearch
+      restart: unless-stopped
+      networks:
+        - app-tier
+
+  kibana:
+      build:
+        context: ./logging-example/kibana
+        args:
+          ELASTIC_VERSION: 7.17.8
+      volumes:
+        - ./logging-example/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
+      ports:
+        - 5601:5601
+      environment:
+        KIBANA_SYSTEM_PASSWORD: changeme
+      depends_on:
+        - elasticsearch
+      restart: unless-stopped
+      networks:
+        - app-tier
+
+  filebeat:
+      build:
+        context: ./logging-example/filebeat
+        args:
+          ELASTIC_VERSION: 7.17.8
+      entrypoint: "filebeat -e -strict.perms=false"
+      volumes:
+        - ./logging-example/filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+        - ./nginx/log:/var/log/nginx # nginx log path (require same option on nginx container)
+      depends_on:
+        - logstash
+        - elasticsearch
+        - kibana
+      networks:
+        - app-tier
 
 
 
