@@ -2,10 +2,10 @@
 <img width="1470" alt="스크린샷 2023-01-31 오후 2 34 10" src="https://user-images.githubusercontent.com/77673029/215676052-3c6b8760-c5c6-4ce5-8553-5668a4953f12.png">
 </p>
 
-# BuySelf
+# 🍰 BuySelf
 
 <p align="center">
-<strong>무인 상품 인식 계산대<br></strong>계산할 때 바코드로 하나하나 찍지 말고 사진 한 장으로 상품을 인식해보세요!
+<strong>무인 상품 인식 계산대 <br></strong>계산할 때 바코드로 하나하나 찍지 말고 사진 한 장으로 상품을 인식해보세요!
 </p>
 <br>
 
