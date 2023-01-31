@@ -1,27 +1,31 @@
 <p align="center">
-메인페이지 이미지
+<img width="1470" alt="스크린샷 2023-01-31 오후 2 34 10" src="https://user-images.githubusercontent.com/77673029/215676052-3c6b8760-c5c6-4ce5-8553-5668a4953f12.png">
 </p>
 
 # BuySelf
 
 <p align="center">
-<strong>무인 상품 인식 계산대<br> </strong>
+<strong>무인 상품 인식 계산대<br>계산할 때 바코드로 하나하나 찍지 말고 한 번에 상품을 인식해보세요!</strong>
 </p>
 <br>
+
+## 📹 Demo
 
 ## 💡Tech Stack
 
 <br>
 
 <p align="center">
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=black">
 
 </p>  
 <p align="center">
 <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=Flask&logoColor=white">  <img src="https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=Celery&logoColor=white"> <img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=RabbitMQ&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white"> <img src="https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=Gunicorn&logoColor=white">
   </p>
 <p align="center">
-<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"> <img src="https://img.shields.io/badge/GitKraken-179287?style=for-the-badge&logo=GitKraken&logoColor=white"> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"> <img src="https://img.shields.io/badge/GitKraken-179287?style=for-the-badge&logo=GitKraken&logoColor=white"> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white">   <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=black">
+<img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=black">
+
 </p>
 
 ```
@@ -35,6 +39,8 @@
 - API Documentation : Swagger
 - Deployment : AWS
 - VCS: Git
+- Monitoring: Prometheus, Grafana, Elastic stack
+- Cache: Redis
 ```
 
 ## 💻 System Architecture
@@ -94,6 +100,39 @@ $ docker-compose up --build         # build images and run containers
 ## 📂 Directory Structure
 
 ```bash
+📦buyself-docker
+ ┣ 📂logging-example
+ ┃ ┣ 📂elasticsearch
+ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┗ 📜elasticsearch.yml
+ ┃ ┃ ┗ 📜Dockerfile
+ ┃ ┣ 📂filebeat
+ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┗ 📜filebeat.yml
+ ┃ ┃ ┗ 📜Dockerfile
+ ┃ ┣ 📂kibana
+ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┗ 📜kibana.yml
+ ┃ ┃ ┗ 📜Dockerfile
+ ┃ ┗ 📂logstash
+ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┗ 📜logstash.yml
+ ┃ ┃ ┣ 📂pipeline
+ ┃ ┃ ┃ ┗ 📜logstash.conf
+ ┃ ┃ ┗ 📜Dockerfile
+ ┣ 📂nginx
+ ┃ ┣ 📂log
+ ┃ ┃ ┣ 📜access.log
+ ┃ ┃ ┗ 📜error.log
+ ┃ ┣ 📜Dockerfile
+ ┃ ┗ 📜nginx.conf
+ ┣ 📂settings
+ ┃ ┗ 📜.env
+ ┣ 📜.gitignore
+ ┣ 📜datasource.yml
+ ┣ 📜docker-compose.prod.yml
+ ┣ 📜docker-compose.yml
+ ┗ 📜prometheus.yml
 📦buyself-backend
  ┣ 📂.idea
  ┃ ┣ 📂inspectionProfiles
@@ -238,3 +277,8 @@ $ docker-compose up --build         # build images and run containers
 ```
 
 ## 👨‍👩‍👧‍👧 팀원
+
+|                                              [최지미](https://github.com/rabbit-22)                                               |                                              [백한결](https://github.com/snake7667)                                               |                                           [박준수](https://github.com/GaBaljaintheroom)                                           |                                               [윤일권](https://github.com/1ilkwon)                                                |                                               [엄선아](https://github.com/eomseona)                                               |                    [권광재](https://github.com/kwongwangjae)                     |
+| :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
+| <img width = "520" src ="https://user-images.githubusercontent.com/77673029/215674043-950d2d6b-b220-460c-bb72-f1d77beb81c4.jpeg"> | <img width = "520" src ="https://user-images.githubusercontent.com/77673029/215674489-3e420f79-7ef2-4f2b-8d9d-d4b48a0ad1ce.jpeg"> | <img width = "520" src ="https://user-images.githubusercontent.com/77673029/215674065-f2b6cd3a-c1f4-4288-988a-2a08e6d52e39.jpeg"> | <img width = "520" src ="https://user-images.githubusercontent.com/77673029/215676854-4ad23ce2-5182-4d76-9dd8-27940d78dd8a.jpeg"> | <img width = "520" src ="https://user-images.githubusercontent.com/77673029/215674500-3a48f7d6-6e1e-41ec-9d48-3f7f537ec695.jpeg"> | <img width = "520" src ="https://avatars.githubusercontent.com/u/121513336?v=4"> |
+|                                                    Leader, Front-end Developer                                                    |                                                      Back-end Developer, AI                                                       |                                                    Back-end Developer, DevOps                                                     |                                                    Back-end Developer, DevOps                                                     |                                                        Front-end Developer                                                        |                               Front-end Developer                                |
