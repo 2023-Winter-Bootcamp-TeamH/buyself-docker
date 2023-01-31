@@ -17,7 +17,6 @@ services:
   frontend:
     build:
       context: ./buyself-frontend
-    command: ["npm", "start"]
     environment:
       - REACT_APP_BACKEND_URL=http://localhost
     volumes:
@@ -26,6 +25,8 @@ services:
       - ./buyself-frontend/node_modules/:/buyself-frontend/node_modules
     networks:
       - app-tier
+    stdin_open: true
+    tty: true
 
   rabbitmq:
     hostname: rabbit
