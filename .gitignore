@@ -63,8 +63,8 @@ log
 *.log
 .idea/
 .DS_Store
+settings/.env
+alertmanager/config.yml
 
 #Prometheus
 prometheus/data
-settings
-alertmanager
