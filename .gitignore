@@ -65,4 +65,4 @@ log
 .DS_Store
 
 /alertmanager/
-/settings/
+/settings/.env
