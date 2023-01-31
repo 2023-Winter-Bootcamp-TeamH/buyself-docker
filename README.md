@@ -117,7 +117,7 @@ $ docker-compose up --build         # build images and run containers
 
 ```bash
 📦buyself-docker
- ┣ 📂logging-example
+ ┣ 📂ELK
  ┃ ┣ 📂elasticsearch
  ┃ ┃ ┣ 📂config
  ┃ ┃ ┃ ┗ 📜elasticsearch.yml
@@ -288,7 +288,7 @@ $ docker-compose up --build         # build images and run containers
 ┣ 📜 docker-compose.yml
 ┣ 📜 prometheus.yml
 ┣ 📂 nginx
-┣ 📂 logging-example
+┣ 📂 ELK
 ┗ 📂 prometheus
 ```
 
