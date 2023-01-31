@@ -18,10 +18,11 @@ services:
     build:
       context: ./buyself-frontend
     command: ["npm", "start"]
-    ports:
-      - 3000:3000
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost
     volumes:
       - ./buyself-frontend/:/buyself-frontend
+      - build_folder:/buyself-frontend/build
       - ./buyself-frontend/node_modules/:/buyself-frontend/node_modules
     networks:
       - app-tier
@@ -142,6 +143,7 @@ services:
       - 80:8080
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - build_folder:/var/www/buyself-frontend
       - ./nginx/log:/var/log/nginx
     networks:
       - app-tier
@@ -240,3 +242,6 @@ services:
 networks:
   app-tier:
     driver: bridge
+
+volumes:
+  build_folder: null
