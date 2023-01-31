@@ -63,3 +63,6 @@ log
 *.log
 .idea/
 .DS_Store
+
+/alertmanager/
+/settings/
