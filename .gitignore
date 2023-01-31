@@ -66,5 +66,6 @@ log
 
 #Prometheus
 prometheus/data
+
 alertmanager/
 settings/
