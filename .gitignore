@@ -58,7 +58,7 @@ $RECYCLE.BIN/
 *.lnk
 
 #Environments
-/settings/.env
+
 log
 *.log
 .idea/
@@ -66,3 +66,5 @@ log
 
 #Prometheus
 prometheus/data
+settings
+alertmanager
