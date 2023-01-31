@@ -5,11 +5,15 @@
 # BuySelf
 
 <p align="center">
-<strong>무인 상품 인식 계산대<br>계산할 때 바코드로 하나하나 찍지 말고 한 번에 상품을 인식해보세요!</strong>
+<strong>무인 상품 인식 계산대<br></strong>계산할 때 바코드로 하나하나 찍지 말고 사진 한 장으로 상품을 인식해보세요!
 </p>
 <br>
 
+
+
 ## 📹 Demo
+
+
 
 ## 💡Tech Stack
 
@@ -24,7 +28,7 @@
   </p>
 <p align="center">
 <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"> <img src="https://img.shields.io/badge/GitKraken-179287?style=for-the-badge&logo=GitKraken&logoColor=white"> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white">   <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=black">
-<img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=black">
+<img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black"> <img src="https://user-images.githubusercontent.com/77673029/215679951-f252b196-a69b-4b28-8b46-d9ab9a041d9f.jpeg">
 
 </p>
 
@@ -43,21 +47,31 @@
 - Cache: Redis
 ```
 
+
+
 ## 💻 System Architecture
 
 ![image](https://user-images.githubusercontent.com/77673029/215631738-2e080de9-8002-4de0-b064-12560660a59a.png)
+
+
 
 ## 📗 API
 
 ![image](https://user-images.githubusercontent.com/77673029/215632356-09bdb1d4-50b1-4f5e-a6cc-c7a6cad63179.png)
 
+
+
 ## 📈 Monitoring
 
 ![image](https://user-images.githubusercontent.com/77673029/215633253-6baf3c12-faf7-46f0-b69e-b4a8f4539721.png)
 
+
+
 ## 🤖 AI
 
 ![image](https://user-images.githubusercontent.com/77673029/215633498-0f75dcf2-29d9-4bd3-8f82-1075acc73d60.png)
+
+
 
 ## 🚀 How to Start
 
@@ -96,6 +110,8 @@ S3_BUCKET_NAME =
 ```
 $ docker-compose up --build         # build images and run containers
 ```
+
+
 
 ## 📂 Directory Structure
 
@@ -275,6 +291,8 @@ $ docker-compose up --build         # build images and run containers
 ┣ 📂 logging-example
 ┗ 📂 prometheus
 ```
+
+
 
 ## 👨‍👩‍👧‍👧 팀원
 
