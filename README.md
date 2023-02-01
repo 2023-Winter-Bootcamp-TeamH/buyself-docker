@@ -12,11 +12,13 @@
 
 
 ## 📹 Demo
-* 상품 스캔
+### 상품 스캔
   <img width="1470" alt="scan product" src="https://user-images.githubusercontent.com/77673029/215985324-8363c936-91e4-4b92-8342-9ac5d6850523.gif">
-* 상품 검색 및 체크리스트 등록
+
+### 상품 검색 및 체크리스트 등록
   <img width="1470" alt="search product and add checklist" src="https://user-images.githubusercontent.com/77673029/215986341-cfe8f19c-25c2-419f-99a0-b78afaaa8d2e.gif">
-* 상품 결제 
+  
+### 상품 결제 
    <img width="1470" alt="payment" src="https://user-images.githubusercontent.com/77673029/215985726-26946a60-1cab-481d-95fd-e7f83e85f630.gif">
 
 
