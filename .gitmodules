@@ -1,0 +1,3 @@
+[submodule "buyself-frontend"]
+	path = buyself-frontend
+	url = https://github.com/2023-Winter-Bootcamp-TeamH/buyself-frontend.git
