@@ -15,7 +15,7 @@ alerting:
 scrape_configs:
   - job_name: 'prometheus'
     static_configs:
-    - targets: ['localhost:9090']
+    - targets: ['13.209.197.192:9090']
   - job_name: 'backend'
     static_configs:
     - targets: ['backend:8000']
