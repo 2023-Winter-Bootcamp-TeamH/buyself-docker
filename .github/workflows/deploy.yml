@@ -1,0 +1,29 @@
+name: Deploy
+
+# event 작성 부분 -> main 브랜치에 push 이벤트가 발생했을 때 job을 실행함
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    # 실행할 os 지정
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run scripts in server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_SSH_HOST }}
+          username: ${{ secrets.AWS_SSH_USERNAME }}
+          key: ${{ secrets.AWS_SSH_KEY }}
+          port: ${{ secrets.AWS_SSH_PORT }}
+          script: |
+            ls -a
+            cd docker
+            git pull https://github.com/2023-Winter-Bootcamp-TeamH/buyself-docker.git
+            docker-compose down 
+            docker-compose up --build -d
