@@ -10,9 +10,9 @@
 <br>
 
 
+
 ## 📒 Medium
 [Introduction](https://medium.com/@rabbit_72/self-checkout-service-with-ai-f127dee34ee3)
-<br>
 
 
 
@@ -33,7 +33,7 @@
 <br>
 
 <p align="center">
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=black">   <img src="https://img.shields.io/badge/Redux%20toolkit-764ABC?style=for-the-badge&logo=Redux&logoColor=white"/> <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white"/> <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=white"/>
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=black"> <img src="https://img.shields.io/badge/Redux%20toolkit-764ABC?style=for-the-badge&logo=Redux&logoColor=white"/> <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white"/> <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=white"/>
 
 </p>  
 <p align="center">
@@ -41,7 +41,8 @@
   </p>
 <p align="center">
 <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"> <img src="https://img.shields.io/badge/GitKraken-179287?style=for-the-badge&logo=GitKraken&logoColor=white"> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white">   <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=black">
-<img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=black"> <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Elastic+Stack&color=005571&logo=Elastic+Stack&logoColor=FFFFFF&label="> 
+<img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black"> <img src="https://img.shields.io/badge/redis-DC382D?style=for-the-badge&logo=redis&logoColor=black"> 
+<img src="https://img.shields.io/static/v1?style=for-the-badge&message=Elastic+Stack&color=005571&logo=Elastic+Stack&logoColor=FFFFFF&label="> 
 
 </p>
 
@@ -76,13 +77,22 @@
 
 ## 📈 Monitoring
 
-![image](https://user-images.githubusercontent.com/77673029/215633253-6baf3c12-faf7-46f0-b69e-b4a8f4539721.png)
+Grafana + Prometheus, ELK
 
+**flask** |**Node exporter**
+-----|-----
+<img src = "https://user-images.githubusercontent.com/97604953/216542291-c9c00516-dd98-4899-95d6-66f726baa3e3.png" width="1700px">|<img src = "https://user-images.githubusercontent.com/97604953/216541221-d34b6574-bda0-4816-a509-221c82cbacd0.png" width="7000px">
+
+
+**cAdvisor** |**ELK**
+-----|-----
+<img src = "https://user-images.githubusercontent.com/97604953/216544336-0ac8a607-f80a-4118-ba64-009375fd2245.png" width="7000px">|<img src = "https://user-images.githubusercontent.com/77673029/215633253-6baf3c12-faf7-46f0-b69e-b4a8f4539721.png" width="7000px">
 
 
 ## 🤖 AI
 
 ![image](https://user-images.githubusercontent.com/77673029/215633498-0f75dcf2-29d9-4bd3-8f82-1075acc73d60.png)
+
 
 
 
@@ -101,7 +111,9 @@ $ cd buyself-frontend
 $ npm run build
 ```
 
-### 3. Set .env file
+### 3. Env Settings
+
+ - Add /buyself-docker/settings/.env file
 
 ```bash
 ### buyself-backedn/config
@@ -121,16 +133,20 @@ S3_BUCKET_NAME =
 ### 4. Run Docker
 
 ```
-$ docker-compose up --build         # build images and run containers
+$ docker-compose -f docker-compose.prod.yml up --build   # build images and run containers
 ```
 
 
 
 ## 📂 Directory Structure
 
+<details>
+<summary>자세히 보기(여기를 눌러주세요)</summary>
+<div>
+
 ```bash
 📦buyself-docker
- ┣ 📂ELK
+ ┣ 📂logging-example
  ┃ ┣ 📂elasticsearch
  ┃ ┃ ┣ 📂config
  ┃ ┃ ┃ ┗ 📜elasticsearch.yml
@@ -301,13 +317,16 @@ $ docker-compose up --build         # build images and run containers
 ┣ 📜 docker-compose.yml
 ┣ 📜 prometheus.yml
 ┣ 📂 nginx
-┣ 📂 ELK
+┣ 📂 logging-example
 ┗ 📂 prometheus
 ```
 
+</div>
+</details>
 
 
-## 👨‍👩‍👧‍👧 Member
+
+## 👨‍👩‍👧‍👧 팀원
 
 |                                              [최지미](https://github.com/rabbit-22)                                               |                                              [백한결](https://github.com/snake7667)                                               |                                           [박준수](https://github.com/GaBaljaintheroom)                                           |                                               [윤일권](https://github.com/1ilkwon)                                                |                                               [엄선아](https://github.com/eomseona)                                               |                    [권광재](https://github.com/kwongwangjae)                     |
 | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
