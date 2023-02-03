@@ -25,6 +25,6 @@ jobs:
             ls -a
             cd docker
             git pull https://github.com/2023-Winter-Bootcamp-TeamH/buyself-docker.git
-            docker-compose down 
-            docker-compose -f docker-compose.prod.yml up --build
-
+            docker stop $(docker ps -a -q)
+            docker-compose -f docker-compose.prod.yml down 
+            docker-compose -f docker-compose.prod.yml up -d --build
