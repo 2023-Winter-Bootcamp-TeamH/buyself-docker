@@ -26,4 +26,5 @@ jobs:
             cd docker
             git pull https://github.com/2023-Winter-Bootcamp-TeamH/buyself-docker.git
             docker-compose down 
-            docker-compose up --build -d
+            docker-compose -f docker-compose.prod.yml up --build
+
